@@ -11,8 +11,7 @@ defmodule Scraper do
                         locations = 
                             response.body
                             |> Floki.find(".sidearm-schedule-game-row")
-                            |> Enum.map(&extract_opponent_date_score/1)
-                            |> Enum.sort(&(&1.name < &2.name))
+                            |> Enum.map(&extract_opponent_date/1)
 
                         {:ok, locations}   
 
@@ -22,18 +21,18 @@ defmodule Scraper do
         end
     end
     
-    defp extract_opponent_date_score({_tag, children}) do
+    defp extract_opponent_date({_tag, attrs, children}) do
       {_, _, [game_date]} =
           Floki.raw_html(children)
-          |> Floki.find(".sidearm-schedule-game-opponent-date")
+          |> Floki.find(".sidearm-schedule-game-opponent-date flex-item-1, span")
           |> hd()
 
       {_, _, [opponent_name]} =
           Floki.raw_html(children)
-          |> Floki.find("sidearm-schedule-game-opponent-name a")
+          |> Floki.find(".sidearm-schedule-game-opponent-name a")
           |> hd()
 
-      %{game_date: game_date, opponent_name: opponent_name}
+      %{game_date: game_date, opponent_name: opponent_name }
 
     end
 
