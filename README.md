@@ -1,6 +1,10 @@
 # MinesSbSchedule
 
-**TODO: Add description**
+An online webscraper for the Mines Softball Schedule
+
+## Usage
+Run `mix escript.build` to create a `mines_sb_schedule` executable, then run `./mines_sb_schedule`.
+(You may also have to install additional dependencies, follow prompts provided by elixir after running this command)
 
 ## Installation
 
