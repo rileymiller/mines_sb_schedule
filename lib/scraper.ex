@@ -1,7 +1,7 @@
 defmodule Scraper do
 
     @doc """
-    Fetch a list of all of the Hale and Hearty locations.
+    Fetch a list of all of the Mines Softball Games.
     """
     def get_locations() do
         case HTTPoison.get("https://minesathletics.com/schedule.aspx?path=softball") do
