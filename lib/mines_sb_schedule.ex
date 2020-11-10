@@ -15,11 +15,10 @@ defmodule Schedule do
 
 
     def display_schedule(locations) do
-        IO.puts("In display_schedule")
         # Prints list of schedules
         locations
         |> Enum.with_index(1)
-        |> Enum.each(fn({game, index}) -> IO.puts " #{index} - #{game.opponent_name} #{game.game_date}" end)
+        |> Enum.each(fn({game, index}) -> IO.puts "#{game.game_date}, #{game.opponent_name} @ #{game.game_time}" end)
     end
 
 end

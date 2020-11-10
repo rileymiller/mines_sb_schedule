@@ -8,11 +8,11 @@ defmodule Scraper do
             {:ok, response} ->
                 case response.status_code do
                     200 ->
-                        locations = 
-                            response.body
-                            |> Floki.find(".sidearm-schedule-game-row")
+                            {:ok, html} = Floki.parse_document(response.body)
+                            
+                            locations = 
+                            Floki.find(html, ".sidearm-schedule-game-row")
                             |> Enum.map(&extract_opponent_date/1)
-
                         {:ok, locations}   
 
                     _ -> :error
@@ -25,16 +25,17 @@ defmodule Scraper do
     
     defp extract_opponent_date({_tag, attrs, children}) do
       {_, _, [game_date]} =
-          Floki.raw_html(children)
-          |> Floki.find(".sidearm-schedule-game-opponent-date flex-item-1, span")
+          Floki.find(children,".sidearm-schedule-game-opponent-date flex-item-1, span")
           |> hd()
 
       {_, _, [opponent_name]} =
-          Floki.raw_html(children)
-          |> Floki.find(".sidearm-schedule-game-opponent-name a")
+          Floki.find(children,".sidearm-schedule-game-opponent-name a")
+          |> hd()
+      {_, _, [game_time]} =
+          Floki.find(children, ".sidearm-schedule-game-opponent-date flex-item-1, span:nth-child(2)")
           |> hd()
 
-      %{game_date: game_date, opponent_name: opponent_name }
+      %{game_date: game_date, opponent_name: opponent_name, game_time: game_time}
 
     end
 
