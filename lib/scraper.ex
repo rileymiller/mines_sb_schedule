@@ -4,7 +4,7 @@ defmodule Scraper do
     Fetch a list of all of the Mines Softball Games.
     """
     def get_locations() do
-        case HTTPoison.get("https://minesathletics.com/schedule.aspx?path=softball") do
+        case HTTPoison.get("https://minesathletics.com/sports/softball/schedule") do
             {:ok, response} ->
                 case response.status_code do
                     200 ->
@@ -17,7 +17,9 @@ defmodule Scraper do
 
                     _ -> :error
                 end
-            _ -> :error
+            {:error, reason} ->
+                IO.inspect reason
+                :error
         end
     end
     

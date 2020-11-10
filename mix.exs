@@ -4,7 +4,7 @@ defmodule MinesSbSchedule.MixFile do
   def project do
     [
       app: :mines_sb_schedule,
-      version: "0.1.0",
+      version: "0.1.1",
       elixir: "~> 1.3",
       build_embedded: Mix.env() == :prod,
       start_permanent: Mix.env() == :prod,
@@ -23,8 +23,8 @@ defmodule MinesSbSchedule.MixFile do
   # Run "mix help deps" to learn about dependencies.
   defp deps do
     [
-      {:httpoison, "~> 0.10.0"},
-      {:floki, "~> 0.11.0"}
+      {:httpoison, "~> 1.7"},
+      {:floki, "~> 0.29.0"}
     ]
   end
 end

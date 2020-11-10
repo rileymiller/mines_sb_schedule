@@ -15,6 +15,7 @@ defmodule Schedule do
 
 
     def display_schedule(locations) do
+        IO.puts("In display_schedule")
         # Prints list of schedules
         locations
         |> Enum.with_index(1)
